@@ -6,7 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Typography from '@material-ui/core/Typography';
 
-class CustomerDelete extends React.Component {
+class CustomerEdit extends React.Component {
 
     constructor(props) {
         super(props);
@@ -17,6 +17,23 @@ class CustomerDelete extends React.Component {
         this.handleClose = this.handleClose.bind(this);
     }
 
+    handleFormSubmit(e) {
+        e.preventDefault()
+        this.editCustomer()
+        .then((response) => {
+            console.log(response.data);
+            this.props.stateRefresh();
+        })
+        this.setState({
+            userName: '',
+            date: '',
+            machine: '',
+            file: null,
+            tvid: '',
+            fileName: '',
+            open: false
+        })
+    }
     handleClickOpen() {
         this.setState({
             open: true
@@ -29,10 +46,10 @@ class CustomerDelete extends React.Component {
         })
     }
 
-    deleteCustomer(id){
-        const url = '/api/customers/delete/' + id;
+    editCustomer(id){
+        const url = '/customer' + id + '/edit';
         fetch(url, {
-            method: 'DELETE'
+            method: 'PUT'
         });
         this.props.stateRefresh();
     }
@@ -41,7 +58,7 @@ class CustomerDelete extends React.Component {
         return (
             <div>
                 <Button variant="contained" color="secondary" onClick={this.handleClickOpen}>
-                    삭제
+                    수정
                 </Button>
                 <Dialog onClose={this.handleClose} open={this.state.open}>
                     <DialogTitle onClose={this.handleClose}>

@@ -20,6 +20,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 
 const styles = theme => ({
+  appBar : {
+    backgroundColor: "#333333"
+  },
   root: {
     width: "100%",
     minWidth: 1080
@@ -93,6 +96,12 @@ const styles = theme => ({
         width: 200,
       },
     },
+  },
+  table: {
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
   }
 });
 
@@ -106,6 +115,7 @@ class App extends Component {
     }
     this.stateRefresh = this.stateRefresh.bind(this);
     this.handleValueChange = this.handleValueChange.bind(this)
+
   }
 
   handleValueChange(e) {
@@ -130,6 +140,7 @@ class App extends Component {
     this.callApi()
       .then(res => this.setState({customers: res}))
       .catch(err => console.log(err));
+      
   }
 
   componentWillUnmount() {
@@ -156,11 +167,12 @@ class App extends Component {
         return <Customer stateRefresh={this.stateRefresh} key={c.id} id={c.id} name={c.name} date={c.date} machine={c.machine} image={c.image} tvid={c.tvid} />
       });
     }
+    console.log(this.props)
     const { classes } = this.props;
     const cellList = ["번호", "업체명", "설치일자", "설치기기", "설치사진", "TeamViewerID", "설정"]
     return(
       <div className={classes.root}>
-        <AppBar position="static">
+        <AppBar position="static" className={classes.appBar}>
           <Toolbar>
             <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
               <MenuIcon />
@@ -192,9 +204,9 @@ class App extends Component {
         <Paper className={classes.paper}>
           <Table>
             <TableHead>
-              <TableRow>
+              <TableRow >
                 {cellList.map(c => {
-                  return <TableCell className={classes.tableHead}>{c}</TableCell>
+                  return <TableCell style={{textAlign: "center"}} className={classes.tableHead}>{c}</TableCell>
                 })}
               </TableRow>
             </TableHead>
