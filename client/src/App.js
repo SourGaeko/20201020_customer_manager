@@ -38,7 +38,7 @@ const styles = theme => ({
     marginRight: 18
   },
   progress: {
-    margin: theme.spacing.unit * 2
+    margin: theme.spacing(2)
   },
   grow: {
     flexGrow: 1,
@@ -66,12 +66,12 @@ const styles = theme => ({
     marginLeft:0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing.unit,
+      marginLeft: theme.spacing(1),
       width: 'auto',
     }
   },
   searchIcon: {
-    width: theme.spacing.unit * 9,
+    width: theme.spacing(9),
     height: '100%',
     position: 'absolute',
     pointerEvents: 'none',
@@ -84,10 +84,10 @@ const styles = theme => ({
     width: '100%',
   },
   inputInput: {
-    paddingTop: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 10,
+    paddingTop: theme.spacing(1),
+    paddingRight: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+    paddingLeft: theme.spacing(10),
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('sm')]: {
@@ -167,9 +167,8 @@ class App extends Component {
         return <Customer stateRefresh={this.stateRefresh} key={c.id} id={c.id} name={c.name} date={c.date} machine={c.machine} image={c.image} tvid={c.tvid} />
       });
     }
-    console.log(this.props)
     const { classes } = this.props;
-    const cellList = ["번호", "업체명", "설치일자", "설치기기", "설치사진", "TeamViewerID", "설정"]
+    const cellList = [{id:1, name:"번호"}, {id:2, name:"업체명"}, {id:3, name:"설치일자"}, {id:4, name:"설치기기"}, {id:5, name:"설치사진"}, {id:6, name:"TeamViewerID"}, {id:7, name:"설정"}]
     return(
       <div className={classes.root}>
         <AppBar position="static" className={classes.appBar}>
@@ -206,7 +205,7 @@ class App extends Component {
             <TableHead>
               <TableRow >
                 {cellList.map(c => {
-                  return <TableCell style={{textAlign: "center"}} className={classes.tableHead}>{c}</TableCell>
+                  return <TableCell key={c.id} style={{textAlign: "center"}} className={classes.tableHead}>{c.name}</TableCell>
                 })}
               </TableRow>
             </TableHead>
