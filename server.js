@@ -33,8 +33,14 @@ app.get('/api/customers',(req, res) => {
 });
 
 // Read Customer Specific
-app.get('api/customers/:id',(req, res) => {
-    console.log(req)
+app.get('/api/customers/:id',(req, res) => {
+    console.log(req.body.id)
+    connection.query(
+        'SELECT * FROM CUSTOMER WHERE id = ?', req.params.id,
+        (err, rows, fields) => {
+            res.send(rows);
+        }
+    )
 })
 
 app.use('/image', express.static('./upload'));

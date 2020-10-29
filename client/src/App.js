@@ -44,7 +44,9 @@ const styles = theme => ({
     flexGrow: 1,
   },
   tableHead: {
-    fontSize: '1.0rem'
+    fontSize: '1.0rem',
+    fontWeight: "600",
+    
   },
   menuButton: {
     marginLeft: -12,
@@ -102,6 +104,12 @@ const styles = theme => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center"
+  },
+  tableRow: {
+    backgroundColor: "red",
+    "&:hover" : {
+      backgroundcolor: "red"
+    }
   }
 });
 
@@ -114,8 +122,7 @@ class App extends Component {
       searchKeyword: ''
     }
     this.stateRefresh = this.stateRefresh.bind(this);
-    this.handleValueChange = this.handleValueChange.bind(this)
-
+    this.handleValueChange = this.handleValueChange.bind(this);
   }
 
   handleValueChange(e) {
@@ -164,7 +171,7 @@ class App extends Component {
         return c.name.indexOf(this.state.searchKeyword) > -1;
       });
       return data.map((c) => {
-        return <Customer stateRefresh={this.stateRefresh} key={c.id} id={c.id} name={c.name} date={c.date} machine={c.machine} image={c.image} tvid={c.tvid} />
+        return <Customer stateRefresh={this.stateRefresh} key={c.id} id={c.id} name={c.name} date={c.date} machine={c.machine} image={c.image} tvid={c.tvid}/>
       });
     }
     const { classes } = this.props;
@@ -201,9 +208,9 @@ class App extends Component {
           <CustomerAdd stateRefresh={this.stateRefresh} />
         </div>
         <Paper className={classes.paper}>
-          <Table>
-            <TableHead>
-              <TableRow >
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead className={classes.tableRow}>
+              <TableRow hover className={classes.tableRow}>
                 {cellList.map(c => {
                   return <TableCell key={c.id} style={{textAlign: "center"}} className={classes.tableHead}>{c.name}</TableCell>
                 })}
